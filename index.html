@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEADA Official</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="./assets/Icon/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Navibar -->
+    <nav id="nav">
+      <div class="nav-container">
+        <div class="logo">
+          <img src="./assets/Icon/AG.png" alt="Logo" />
+        </div>
+        <div class="pag">
+          <ul class="menu">
+            <li>Home</a></li>
+            <li>Product</a></li>
+            <li>Galerry</li>
+            <li>Contact</li>
+            <li onclick="logout()" style="cursor:pointer">Logout</li>
+          </ul>
+        </div>
+        <div class="search">
+          <input type="text" class="search-input" id="searchInput" placeholder="Cari nama produk...">
+          <i class="fa fa-magnifying-glass"></i>
+        </div>
+        <div class="menu-toggle">
+          &#9776;
+        </div>
+      </div>
+    </nav>
+
+
+
+
+    <!-- Main Slider -->
+    <section id="images-slider" class="image-slider">
+      <div class="slider">
+        <div class="slider-wrapper">
+          <!-- Slide 1 -->
+          <div class="slide">
+            <img src="./assets/banner/bnrsale0.png"
+              srcset="./assets/banner/bnrsale0.png, ./assets/banner/bnrsale0.png 1920w"
+              sizes="(max-width: 768px) 100vw, 100vw" alt="Banner2_Books">
+          </div>
+          <!-- Slide 2 -->
+          <div class="slide">
+            <img src="./assets/banner/bnrsale9.png"
+              srcset="./assets/banner/bnrsale9.png 768w, ./assets/banner/bnrsale9.png 1920w"
+              sizes="(max-width: 768px) 100vw, 100vw" alt="Banner3_Books">
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Strip Slider -->
+    <section id="strip-slider" class="image-slider strip-slider">
+      <div class="slider">
+        <div class="slider-wrapper">
+          <div class="slide">
+         
+          </div>
+          <div id="books" class="slide">
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Productos -->
+    <section class="categories-main">
+      <article id="search-section">
+        <div class="article-title">
+          <h1>Nervalleth</h1>
+        </div>
+        <div class="categories">
+          <div class="category-item" onclick="selectCategory(1, this)">
+            <p>Jaket</p>
+          </div>
+          <div class="category-item" onclick="selectCategory(2, this)">
+            <p>Celana</p>
+          </div>
+          <div class="category-item" onclick="selectCategory(3, this)">
+            <p>Kaos</p>
+          </div>
+          <div class="category-item" onclick="selectCategory(4, this)">
+            <p>Sepatu</p>
+          </div>
+          <div class="category-item" onclick="selectCategory(5, this)">
+            <p>Topi</p>
+          </div>
+          <div class="category-item" onclick="selectCategory(6, this)">
+            <p>Favorit</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+
+    <div class="clear-filters">
+      <button onclick="clearCategory()" class="clear"><i class="fa-solid fa-x"></i>Menu utama</button>
+    </div>
+
+
+    <div class="title-products">
+      <div class="category-indx">
+
+      </div>
+    </div>
+
+    <div class="products-page">
+      <div id="product-grid" class="product-grid"></div>
+      <div id="no-results" class="no-results" style="display: none;">
+        <p>No <span id="searchQuery"></span>".</p>
+        <p>Lo  <i class="fa-solid fa-face-sad-tear"></i></p>
+      </div>
+    </div>
+
+    <!-- Galería -->
+    <article id="gallery-section" class="gal" style="margin-top: 30px; margin-bottom: 50px;">
+      <div class="article-title">
+        <h1 style="margin-bottom: 10px;">Pilihan</h1>
+      </div>
+
+      <div class="book-slider" reverse="true" style="
+    --book-width: 300px;
+    --book-height: 200px;
+    --book-quantity: 6;
+  ">
+        <div class="book-list">
+          <div class="book-item" style="--book-position: 1">
+            <img src="./assets/F731.png" alt="Gambar 1">
+          </div>
+          <div class="book-item" style="--book-position: 2">
+            <img src="./assets/Baseball.png" alt="Gambar 2">
+          </div>
+          <div class="book-item" style="--book-position: 3">
+            <img src="./assets/F752.png" alt="Gambar 3">
+          </div>
+          <div class="book-item" style="--book-position: 4">
+            <img src="./assets/Gray.png" alt="Gambar 4">
+          </div>
+          <div class="book-item" style="--book-position: 5">
+            <img src="./assets/High.png" alt="Gambar 5">
+          </div>
+          <div class="book-item" style="--book-position: 6">
+            <img src="./assets/hoodie.png" alt="Gambar 6">
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Carrito -->
+    <div id="cart-button" class="cart-button">
+      <i class="fa-solid fa-shopping-cart"></i>
+      <span id="cart-counter" class="cart-counter">0</span>
+    </div>
+
+
+    <!-- Modal Carrito -->
+    <div id="cart" class="cart hidden">
+      <h3> Keranjang <span id="close-cart-button"></span></h3>
+      <ul id="cart-items" class="cart-items"></ul>
+      <div class="cart-total" id="cart-total">Total: Rp 0</div>
+      <button id="checkout-button" class="checkout-button">Bayar</button>
+    </div>
+
+
+    <!-- Contacto -->
+    <footer id="footer contato">
+      <div class="container">
+        <div class="social-icons">
+          <a href="https://www.instagram.com/ibikesatuan?igsh=OTNzeGhtazJ2Y2Yz" target="_blank" rel="noopener" aria-label="Instagram"><i
+              class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 GEADA. All rights reserved</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="product.js"></script>
+    <script src="app.js"></script>
+    <script src="slider.js"></script>
+    <script src="CategorySliders.js"></script>
+    <script>
+     function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+     }
+    </script>
+
+
+    <script>
+    if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "login.html";
+   }
+    </script>
+    <script>
+  if (!localStorage.getItem('isLoggedIn')) {
+    window.location.href = 'login.html'; // balikin ke login kalau belum login
+  }
+</script>
+
+</body>
+
+
+</html>
