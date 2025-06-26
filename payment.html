@@ -1,50 +1,179 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagar</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran | GEADA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffffff, #e0e0e0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .payment-container {
+      background: #fff;
+      display: flex;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      width: 90%;
+      max-width: 850px;
+    }
+
+    .left-section {
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff, #222222);
+      color: #fff;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .left-section h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .left-section p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .right-section {
+      flex: 2;
+      padding: 40px;
+    }
+
+    .right-section h2 {
+      margin-top: 0;
+    }
+
+    .method-icons {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .method-icons button {
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .form-input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .pay-btn {
+      margin-top: 20px;
+      background: #5e2e91;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .qr-section {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .qr-section img {
+      margin-top: 10px;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="payment-container">
-        <h1>Completa tu compra</h1>
 
-        <div class="payment-methods">
-            <form id="payment-form">
-                <!-- Tarjeta -->
-                <div class="payment-method">
-                    <input type="radio" id="card-payment" name="payment-method" value="tarjeta" required>
-                    <label for="card-payment">
-                        <i class="fa-solid fa-credit-card"></i> Pago con Tarjeta
-                    </label>
-                </div>
+<div class="payment-container">
+  <div class="left-section">
+    <h1>Rp 220.000</h1>
+    <p>Total Harga</p>
+    <p>Silakan selesaikan pembayaran Anda menggunakan metode yang tersedia di samping.</p>
+  </div>
+  <div class="right-section">
+    <h2>Select Payment Method</h2>
 
-                <!-- PayPal -->
-                <div class="payment-method">
-                    <input type="radio" id="paypal-payment" name="payment-method" value="paypal">
-                    <label for="paypal-payment">
-                        <i class="fa-brands fa-paypal"></i> Pago con PayPal
-                    </label>
-                </div>
-
-                <!-- Transferencia Bancaria -->
-                <div class="payment-method">
-                    <input type="radio" id="bank-payment" name="payment-method" value="banco">
-                    <label for="bank-payment">
-                        <i class="fa-solid fa-building-columns"></i> Transferencia Bancaria
-                    </label>
-                </div>
-
-                <button type="submit" class="btn-pagar">Pagar Ahora</button>
-            </form>
-        </div>
+    <div class="method-icons">
+      <button onclick="pilihMetode('card')"><i class="fas fa-credit-card"></i></button>
+      <button onclick="pilihMetode('qr')">QR</button>
     </div>
 
-    <script src="pago.js"></script>
-</body>
+    <div id="form-card">
+      <input type="text" class="form-input" placeholder="Card number">
+      <input type="text" class="form-input" placeholder="Cardholder">
+      <div class="row">
+        <input type="text" class="form-input" placeholder="MM/YY">
+        <input type="text" class="form-input" placeholder="CVV">
+      </div>
+      <div style="margin-top: 10px">
+        <input type="checkbox"> <label>Save card details for future use</label>
+      </div>
+    </div>
 
+    <div id="form-qr" class="qr-section">
+      <p>Scan QR di bawah ini untuk membayar:</p>
+      <img id="qrImage" src="" alt="QR Code" width="200">
+    </div>
+
+    <button class="pay-btn" onclick="prosesPembayaran()">Pay now</button>
+  </div>
+</div>
+
+<script>
+  let metodeDipilih = 'card';
+
+  function pilihMetode(metode) {
+    metodeDipilih = metode;
+    document.getElementById('form-card').style.display = metode === 'card' ? 'block' : 'none';
+    document.getElementById('form-qr').style.display = metode === 'qr' ? 'block' : 'none';
+
+    if (metode === 'qr') {
+      const qrData = `Pembayaran ke GEADA Rp 220.000`;
+      const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+      document.getElementById('qrImage').src = qrURL;
+    }
+  }
+
+  function prosesPembayaran() {
+    const transaksiID = 'INV' + new Date().toISOString().slice(0,10).replace(/-/g,'') + Math.floor(Math.random() * 1000);
+    const total = "Rp 220.000";
+
+    localStorage.setItem("receipt", JSON.stringify({
+      metode: metodeDipilih,
+      transaksiID: transaksiID,
+      total: total,
+      tanggal: new Date().toLocaleString()
+    }));
+
+    // Pindah ke receipt.html
+    window.location.href = "receipt.html";
+  }
+</script>
+
+</body>
 </html>

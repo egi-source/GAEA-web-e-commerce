@@ -2,6 +2,11 @@
 <html lang="es">
 
 <head>
+  <script>
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "login.html";
+  }
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GEADA Official</title>
@@ -211,6 +216,12 @@
   if (!localStorage.getItem('isLoggedIn')) {
     window.location.href = 'login.html'; // balikin ke login kalau belum login
   }
+</script>
+
+<script>
+  document.getElementById('checkout-button').addEventListener('click', function () {
+    window.location.href = 'payment.html';
+  });
 </script>
 
 </body>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bukti Pembayaran</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #f9f5ef, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .receipt-container {
+      background: white;
+      border-radius: 24px;
+      padding: 30px 40px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eee;
+    }
+
+    .receipt-header {
+      text-align: center;
+      background-color: #f2e9dc;
+      border-radius: 20px 20px 0 0;
+      padding: 20px 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #4a4a4a;
+    }
+
+    .receipt-body {
+      padding: 20px 10px 10px 10px;
+      color: #333;
+    }
+
+    .receipt-body h2 {
+      margin-top: 0;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .info-box {
+      background-color: #f9f9f9;
+      padding: 12px;
+      border-radius: 12px;
+      margin: 15px 0;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .detail-box {
+      background-color: #f3f3f3;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .detail-box p {
+      margin: 6px 0;
+    }
+
+    .salin-btn {
+      background: #ccc;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-container">
+    <div class="receipt-header">Rincian Pembayaran</div>
+    <div class="receipt-body">
+      <h2>-Rp <span id="total">0</span></h2>
+      <div class="success">✔ Berhasil</div>
+      <div id="tanggal"></div>
+
+      <div class="info-box">
+        <strong>Bayar Ke</strong>
+        GEADA OFFICIAL
+      </div>
+
+      <div class="detail-box">
+        <p>Transaksi SN: <span id="transaksi"></span> <button class="salin-btn" onclick="salinSN()">Salin</button></p>
+        <p>Order SN: <span id="order"></span></p>
+        <p>Metode Pembayaran: <span id="metode"></span></p>
+        <p>Merchant Ref ID: <span id="merchant"></span></p>
+        <p>Nama Pengakuisisi: ShopeePay</p>
+        <p>Nama Penerbit: ShopeePay</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("receipt")) || {
+      total: "Rp 0",
+      metode: "-",
+      tanggal: new Date().toLocaleString("id-ID")
+    };
+
+    function randomString(length) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      return Array.from({length}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    }
+
+    document.getElementById("total").innerText = data.total;
+    document.getElementById("tanggal").innerText = "Waktu Selesai: " + data.tanggal;
+    document.getElementById("metode").innerText = data.metode.toUpperCase();
+    document.getElementById("transaksi").innerText = randomString(8);
+    document.getElementById("order").innerText = Math.floor(10000 + Math.random() * 90000);
+    document.getElementById("merchant").innerText = randomString(8).toLowerCase();
+
+    function salinSN() {
+      const sn = document.getElementById("transaksi").innerText;
+      navigator.clipboard.writeText(sn);
+      alert("SN disalin: " + sn);
+    }
+  </script>
+</body>
+</html>
