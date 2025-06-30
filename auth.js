@@ -4,11 +4,11 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  // Ganti ini dengan username/password kamu sendiri
   const validUsername = "admin@gmail.com";
   const validPassword = "admin"; 
 
 
+// Perubahan kecil oleh Guntur Purnama
 
 
    
